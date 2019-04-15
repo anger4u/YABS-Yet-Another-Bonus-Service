@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="b220269c-0218-4699-a7b4-6e81361e74e5" name="rarus" url="http://194.226.180.68">
+        <fileTransfer host="194.226.180.68" port="22168" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22168" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
