@@ -16,7 +16,6 @@ abstract class Api
     {
         // Определение метода запроса
         $this->method = $_SERVER['REQUEST_METHOD'];
-        print_r($this->method);
 
         // Определение параметров
         $this->uriData = array_slice(explode('/', rtrim($_GET['req'], '/')), 1);

@@ -16,14 +16,15 @@ class Users extends Api
      */
     public function indexAction()
     {
-        $db = (new Database())->getConnect();
+        $db = new Database();
         $query = 'SELECT * FROM users';
-        $qRes = mysqli_query($db, $query);
+        $qRes  = $db->getAll($query);
 
         if($qRes){
+            print_r($qRes);
             return $this->response($qRes, 200);
         }
-        print_r('11');
+
         return $this->response('Данные не найдены', 404);
     }
 

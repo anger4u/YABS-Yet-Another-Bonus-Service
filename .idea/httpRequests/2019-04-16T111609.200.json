@@ -1,0 +1,7 @@
+UsersPOST<br />
+<b>Fatal error</b>:  Uncaught Exception: Метод не указан. in /home/bitrix/www/Classes/Api.php: 48
+Stack trace: #0 /home/bitrix/www/Classes/Api.php(23): Api-&gt;getAction()
+#1 /home/bitrix/www/Classes/Users.php(123): Api-&gt;__construct()
+#2 /home/bitrix/www/index.php(20): require_once('/home/bitrix/ww...')
+#3 {main}
+thrown in <b>/home/bitrix/www/Classes/Api.php</b> on line <b>48</b><br />
