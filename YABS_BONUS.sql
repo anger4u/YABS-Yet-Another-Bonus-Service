@@ -104,6 +104,6 @@ CREATE TABLE `bonus_rules` (
 --
 -- Дамп данных таблицы `users`
 --
--- INSERT INTO `users` (`id`, `login`, `pass_hash`, `name`, `position`) VALUES
--- (1, 'arik', 'lolik', 'Гриша', 'Манагер'),
--- (2, 'kiko', 'kloi', 'Олег', 'Директор');
+INSERT INTO `users` (`id`, `login`, `pass_hash`, `position`) VALUES
+(1, 'manager1', 'qwerty123', 'Манагер'),
+(2, 'main', '321qwerty', 'Босс');

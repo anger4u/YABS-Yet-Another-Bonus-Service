@@ -2,7 +2,6 @@
 
 require_once 'Api.php';
 require_once 'Database.php';
-//require_once 'Users.php';
 
 class Users extends Api
 {
@@ -24,6 +23,7 @@ class Users extends Api
         if($qRes){
             return $this->response($qRes, 200);
         }
+        print_r('11');
         return $this->response('Данные не найдены', 404);
     }
 

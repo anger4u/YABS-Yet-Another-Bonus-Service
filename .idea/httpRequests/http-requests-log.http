@@ -2,6 +2,38 @@ POST http://golf.rarus-crimea.ru/Users/create
 Accept: */*
 Cache-Control: no-cache
 
+<> 2019-04-16T101236-1.500.json
+
+###
+
+POST http://golf.rarus-crimea.ru/Users/create
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-04-16T101236.500.json
+
+###
+
+POST http://golf.rarus-crimea.ru/Users/create
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-04-16T101205.500.json
+
+###
+
+POST http://golf.rarus-crimea.ru/Users/create
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-04-16T101202.500.json
+
+###
+
+POST http://golf.rarus-crimea.ru/Users/create
+Accept: */*
+Cache-Control: no-cache
+
 <> 2019-04-15T015609.500.json
 
 ###

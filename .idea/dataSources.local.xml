@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-    <data-source name="YABS_BONUS@localhost" uuid="e5661b01-561c-48d1-82ca-88b1907caa70">
+    <data-source name="YABS_BONUS@localhost" uuid="4fca179e-5c2d-4fb8-910f-c33a0a3267e2">
       <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
-      <secret-storage>master_key</secret-storage>
+      <secret-storage>forget</secret-storage>
       <user-name>root</user-name>
       <ssh-properties>
         <enabled>true</enabled>
