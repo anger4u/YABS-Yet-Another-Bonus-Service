@@ -1,75 +1,90 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+
+namespace Classes;
+
+use Classes\Helper;
+use Exception;
 
 abstract class Api
 {
-    public $apiName = ''; // Название API
+    use Helper;
 
     protected $method = ''; // Метод запроса
 
-    protected $uriData = []; // url параметры
+    protected $requestPath = []; // Путь запроса
+
+    protected $requestParams = []; // Параметры запроса
 
     protected $action = ''; //Название метода для выполнения
 
     public function __construct()
     {
+        // устанавливаем, что все домены могут обращаться в ресурсам сайта
+        header("Access-Control-Allow-Origin: *");
+        // устанавливаем, что все запросы могут быть использованы для доступа к ресурсам
+        header("Access-Control-Allow-Methods: *");
+        // устанавливаем тип передаваемых данных
+        header("Content-Type: application/json");
+
         // Определение метода запроса
         $this->method = $_SERVER['REQUEST_METHOD'];
 
+        // Разбиваем uri до параметров и определяем массив из uri
+        $apiPath = explode('?', $_SERVER['REQUEST_URI']);
+        $this->requestPath = explode('/', trim($apiPath[0], '/'));
+
         // Определение параметров
-        $this->uriData = array_slice(explode('/', rtrim($_GET['req'], '/')), 1);
+        $this->requestParams = $_REQUEST;
 
         //Определение действия для обработки
         $this->action = $this->getAction();
+    }
 
-        // Вызов действия
-        $this->{$this->action}();
+    public function run()
+    {
+        return $this->{$this->action}();
     }
 
     protected function getAction()
     {
         $method = $this->method;
+        $action = null;
+
         switch ($method) {
             case 'GET':
-                if ($this->uriData) {
+                if (count($this->requestPath) > 2) {
                     return 'viewAction';
                 } else {
                     return 'indexAction';
                 }
                 break;
             case 'POST':
-                if($this->uriData[0] === 'create') {
-                    return 'createAction';
-                } elseif ($this->uriData[0] === 'update') {
-                    return 'updateAction';
-                } elseif ($this->uriData[0] === 'delete') {
-                    return 'deleteAction';
+                if (count($this->requestPath) > 2) {
+                    switch ($this->requestPath[2]) {
+                        case 'create':
+                            $action = 'createAction';
+                            break;
+
+                        case 'update':
+                            $action = 'updateAction';
+                            break;
+
+                        case 'delete':
+                            $action = 'deleteAction';
+                            break;
+
+                        default:
+                            throw new Exception('Метод не найден.');
+                            break;
+                    }
                 } else {
                     throw new Exception('Метод не указан.');
                 }
                 break;
-            default:
-                return null;
         }
-    }
-
-    private function requestStatus($code)
-    {
-        $status = array(
-            200 => 'OK',
-            404 => 'Not Found',
-            405 => 'Method Not Allowed',
-            500 => 'Internal Server Error',
-        );
-        return ($status[$code]) ? $status[$code] : $status[500];
-    }
-
-    //
-    protected function response($data, $status = 500)
-    {
-        header("HTTP/1.1 " . $status . " " . $this->requestStatus($status));
-        return json_encode($data);
+        return $action;
     }
 
     abstract protected function indexAction();

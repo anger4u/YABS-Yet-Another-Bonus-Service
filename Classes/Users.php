@@ -1,13 +1,12 @@
 <?php
 
-require_once 'Api.php';
-require_once 'Database.php';
+namespace Classes;
+
+use Classes\Api;
+use Classes\UserModel;
 
 class Users extends Api
 {
-    public $apiName = 'Users';
-
-
     /**
      * Метод GET
      * Вывод списка всех записей
@@ -16,16 +15,9 @@ class Users extends Api
      */
     public function indexAction()
     {
-        $db = new Database();
-        $query = 'SELECT * FROM users';
-        $qRes  = $db->getAll($query);
+        $users = (new UserModel)->getUsers();
 
-        if($qRes){
-            print_r($qRes);
-            return $this->response($qRes, 200);
-        }
-
-        return $this->response('Данные не найдены', 404);
+        return $this->response(['users' => $users], 200);
     }
 
     /**
@@ -36,18 +28,17 @@ class Users extends Api
      */
     public function viewAction()
     {
-        echo 'test11';
-        //id должен быть первым параметром после /users/x
-        $id = array_shift($this->requestUri);
+        //id должен быть первым параметром после /api/users/:id
+        $id = array_pop($this->requestPath);
 
-        if($id){
-            $db = (new db())->getConnect();
-            $user = Users::getById($db, $id);
-            if($user){
-                return $this->response($user, 200);
+        if ($id) {
+            $user = (new UserModel)->getUser(['id' => $id]);
+            if ($user) {
+                return $this->response(['user' => $user], 200);
             }
         }
-        return $this->response('Данные не найдены', 404);
+
+        return $this->response(['error' => 'Пользователь не найден'], 404);
     }
 
     /**
@@ -58,19 +49,21 @@ class Users extends Api
      */
     public function createAction()
     {
-        $name = $this->requestParams['name'] ?? '';
-        $email = $this->requestParams['email'] ?? '';
-        if($name && $email){
-            $db = (new db())->getConnect();
-            $user = new Users($db, [
-                'name' => $name,
-                'email' => $email
-            ]);
-            if($user = $user->saveNew()){
-                return $this->response('Data saved.', 200);
-            }
+        $login    = $this->requestParams['login'] ?? '';
+        $password = $this->requestParams['password'] ?? '';
+
+        $user = new UserModel;
+
+        $createUser = $user->createUser([
+            'login'    => $login,
+            'password' => $password,
+        ]);
+
+        if ($createUser) {
+            return $this->response(['message' => 'Пользователь создан'], 200);
         }
-        return $this->response("Saving error", 500);
+
+        return $this->response(['error' => "Ошибка создания пользователя"], 500);
     }
 
     /**
@@ -81,24 +74,24 @@ class Users extends Api
      */
     public function updateAction()
     {
-        $parse_url = parse_url($this->requestUri[0]);
-        $userId = $parse_url['path'] ?? null;
+        // $parse_url = parse_url($this->requestUri[0]);
+        // $userId    = $parse_url['path'] ?? null;
 
-        $db = (new db())->getConnect();
+        // $db = (new db())->getConnect();
 
-        if(!$userId || !Users::getById($db, $userId)){
-            return $this->response("User with id=$userId not found", 404);
-        }
+        // if (!$userId || !Users::getById($db, $userId)) {
+        //     return $this->response("User with id=$userId not found", 404);
+        // }
 
-        $name = $this->requestParams['name'] ?? '';
-        $email = $this->requestParams['email'] ?? '';
+        // $name  = $this->requestParams['name'] ?? '';
+        // $email = $this->requestParams['email'] ?? '';
 
-        if($name && $email){
-            if($user = Users::update($db, $userId, $name, $email)){
-                return $this->response('Data updated.', 200);
-            }
-        }
-        return $this->response("Update error", 400);
+        // if ($name && $email) {
+        //     if ($user = Users::update($db, $userId, $name, $email)) {
+        //         return $this->response('Data updated.', 200);
+        //     }
+        // }
+        // return $this->response("Update error", 400);
     }
 
     /**
@@ -109,19 +102,17 @@ class Users extends Api
      */
     public function deleteAction()
     {
-        $parse_url = parse_url($this->requestUri[0]);
-        $userId = $parse_url['path'] ?? null;
+        // $parse_url = parse_url($this->requestUri[0]);
+        // $userId    = $parse_url['path'] ?? null;
 
-        $db = (new db())->getConnect();
+        // $db = (new db())->getConnect();
 
-        if(!$userId || !Users::getById($db, $userId)){
-            return $this->response("User with id=$userId not found", 404);
-        }
-        if(Users::deleteById($db, $userId)){
-            return $this->response('Data deleted.', 200);
-        }
-        return $this->response("Delete error", 500);
+        // if (!$userId || !Users::getById($db, $userId)) {
+        //     return $this->response("User with id=$userId not found", 404);
+        // }
+        // if (Users::deleteById($db, $userId)) {
+        //     return $this->response('Data deleted.', 200);
+        // }
+        // return $this->response("Delete error", 500);
     }
 }
-
-new Users();

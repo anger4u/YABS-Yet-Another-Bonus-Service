@@ -1,5 +1,10 @@
 <?php
 
+namespace Classes;
+
+/**
+ * SafeMySQL
+ */
 class Database
 {
     protected $conn;

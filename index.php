@@ -1,22 +1,14 @@
-<?php
-
-// устанавливаем, что все домены могут обращаться в ресурсам сайта
-header("Access-Control-Allow-Origin: *");
-// устанавливаем, что все запросы могут быть использованы для доступа к ресурсам
-header("Access-Control-Allow-Methods: *");
-// устанавливаем тип передаваемых данных
-header("Content-Type: application/json");
-
-// Разбираем url
-$url = (isset($_GET['req'])) ? $_GET['req'] : '';
-$urls = explode('/', rtrim($url, '/'));
-
-// Определяем роутер и url data
-$router = ucfirst($urls[0]);
-
-// Подключаем файл-роутер и запускаем главную функцию
-if (file_exists(__DIR__ . '/Classes/' . $router . '.php')) {
-    require_once 'Classes/' . $router . '.php';
-} else {
-    throw new RuntimeException('API Not Found', 404);
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <?php
+        echo "<h1>Hi!!!</h1>";
+    ?>
+</body>
+</html>
