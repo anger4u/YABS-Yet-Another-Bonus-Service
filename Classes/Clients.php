@@ -2,8 +2,8 @@
 
 namespace Classes;
 
-use Classes\Api;
-use Classes\ClientModel;
+//use Classes\Api;
+//use Classes\ClientModel;
 
 class Clients extends Api
 {
@@ -11,6 +11,7 @@ class Clients extends Api
      * Метод GET
      * Вывод списка всех записей
      * http://ДОМЕН/clients
+     *
      * @return string
      */
     public function indexAction()
@@ -24,6 +25,7 @@ class Clients extends Api
      * Метод GET
      * Просмотр отдельной записи (по id)
      * http://ДОМЕН/clients/1
+     *
      * @return string
      */
     public function viewAction()
@@ -45,21 +47,22 @@ class Clients extends Api
      * Метод POST
      * Создание новой записи
      * http://ДОМЕН/users + параметры запроса name, email
+     *
      * @return string
      */
     public function createAction()
     {
-        $name     = $this->requestParams['name'] ?? '';
-        $surname  = $this->requestParams['surname'] ?? '';
-        $phone    = $this->requestParams['phone'] ?? '';
+        $name = $this->requestParams['name'] ?? '';
+        $surname = $this->requestParams['surname'] ?? '';
+        $phone = $this->requestParams['phone'] ?? '';
         $birthday = $this->requestParams['birthday'] ?? '';
 
         $client = new ClientModel;
 
         $createClient = $client->createClient([
-            'name'     => $name,
-            'surname'  => $surname,
-            'phone'    => $phone,
+            'name' => $name,
+            'surname' => $surname,
+            'phone' => $phone,
             'birthday' => $birthday,
         ]);
 
@@ -74,6 +77,7 @@ class Clients extends Api
      * Метод PUT
      * Обновление отдельной записи (по ее id)
      * http://ДОМЕН/users/1 + параметры запроса name, email
+     *
      * @return string
      */
     public function updateAction()
@@ -102,6 +106,7 @@ class Clients extends Api
      * Метод DELETE
      * Удаление отдельной записи (по ее id)
      * http://ДОМЕН/users/1
+     *
      * @return string
      */
     public function deleteAction()

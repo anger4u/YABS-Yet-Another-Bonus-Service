@@ -2,8 +2,8 @@
 
 namespace Classes;
 
-use Classes\Api;
-use Classes\UserModel;
+//use Classes\Api;
+//use Classes\UserModel;
 
 class Users extends Api
 {
@@ -11,6 +11,7 @@ class Users extends Api
      * Метод GET
      * Вывод списка всех записей
      * http://ДОМЕН/users
+     *
      * @return string
      */
     public function indexAction()
@@ -24,6 +25,7 @@ class Users extends Api
      * Метод GET
      * Просмотр отдельной записи (по id)
      * http://ДОМЕН/users/1
+     *
      * @return string
      */
     public function viewAction()
@@ -45,17 +47,18 @@ class Users extends Api
      * Метод POST
      * Создание новой записи
      * http://ДОМЕН/users + параметры запроса name, email
+     *
      * @return string
      */
     public function createAction()
     {
-        $login    = $this->requestParams['login'] ?? '';
+        $login = $this->requestParams['login'] ?? '';
         $password = $this->requestParams['password'] ?? '';
 
         $user = new UserModel;
 
         $createUser = $user->createUser([
-            'login'    => $login,
+            'login' => $login,
             'password' => $password,
         ]);
 
@@ -70,6 +73,7 @@ class Users extends Api
      * Метод PUT
      * Обновление отдельной записи (по ее id)
      * http://ДОМЕН/users/1 + параметры запроса name, email
+     *
      * @return string
      */
     public function updateAction()
@@ -98,6 +102,7 @@ class Users extends Api
      * Метод DELETE
      * Удаление отдельной записи (по ее id)
      * http://ДОМЕН/users/1
+     *
      * @return string
      */
     public function deleteAction()

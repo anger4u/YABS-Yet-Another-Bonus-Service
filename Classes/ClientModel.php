@@ -2,8 +2,8 @@
 
 namespace Classes;
 
-use Classes\Database;
-use Classes\Helper;
+//use Classes\Database;
+//use Classes\Helper;
 use Exception;
 
 class ClientModel
@@ -31,7 +31,7 @@ class ClientModel
     public function getClient($options = [])
     {
         extract(array_merge([
-            'id'    => null,
+            'id' => null,
             'phone' => null,
         ], $options));
 
@@ -74,9 +74,9 @@ class ClientModel
     public function createClient($options = []): array
     {
         $defaults = [
-            'name'     => null,
-            'surname'  => null,
-            'phone'    => null,
+            'name' => null,
+            'surname' => null,
+            'phone' => null,
             'birthday' => null,
         ];
 
@@ -107,11 +107,11 @@ class ClientModel
 
             try {
                 $buildSet = "";
-    
+
                 foreach ($defaults as $key => $value) {
                     $buildSet .= $key . "='" . $options[$key] . "', ";
                 }
-    
+
                 $buildSet = substr($buildSet, 0, -2);
 
                 $this->db->query("INSERT INTO $this->table SET $buildSet");

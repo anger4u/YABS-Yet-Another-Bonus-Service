@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 require_once __DIR__ . '/vendor/autoload.php';
 
 use Classes\Auth;
-use RuntimeException;
+use Exception;
 
 try {
     $auth = new Auth;
@@ -20,7 +20,7 @@ try {
     }
 
     if (!$auth->isOk()) {
-        throw new RuntimeException('Access denied', 404);
+        throw new Exception('Доступ запрещён', 404);
     }
 } catch (Exception $e) {
     die(json_encode(['error' => $e->getMessage()]));
@@ -35,19 +35,19 @@ $requestUri = explode('/', trim($requestPath[0], '/'));
 
 // проверяем на наличие api в ссылке
 if (array_shift($requestUri) === 'api' && !count($requestUri)) {
-    throw new RuntimeException('API Not Found', 404);
+    throw new Exception('API не найден', 404);
 }
 
 // получаем имя метода и устанавливаем первую букву в верхний регистр
 $apiName = ucfirst($requestUri[0]);
 
 // генерируем путь к классу
-$generateModelPath = implode('\\', ['Classes', $apiName]);
+$generateApiPath = implode('\\', ['Classes', $apiName]);
 
 // проверяем на наличие класса
-if (!class_exists($generateModelPath)) {
-    throw new RuntimeException("API: Module $apiName not found", 404);
+if (!class_exists($generateApiPath)) {
+    throw new Exception("API: Модуль $apiName не найден", 404);
 }
 
 // вызываем класс
-echo (new $generateModelPath)->run();
+echo (new $generateApiPath)->run();

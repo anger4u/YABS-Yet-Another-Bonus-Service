@@ -2,8 +2,8 @@
 
 namespace Classes;
 
-use Classes\Database;
-use Classes\Helper;
+//use Classes\Database;
+//use Classes\Helper;
 use Exception;
 
 class UserModel
@@ -32,7 +32,7 @@ class UserModel
     {
         extract(array_merge([
             'login' => '',
-            'id'    => '',
+            'id' => '',
         ], $options));
 
         try {
@@ -45,7 +45,7 @@ class UserModel
             if ($login) {
                 $query = $this->db->getAll("SELECT * FROM $this->table WHERE login = ?s", $login);
             } else if ($id) {
-                $query = $this->db->getAll("SELECT * FROM $this->table WHERE id = ?i", (int) $id);
+                $query = $this->db->getAll("SELECT * FROM $this->table WHERE id = ?i", (int)$id);
             }
 
             if (count($query) > 0) {
@@ -74,7 +74,7 @@ class UserModel
     public function createUser($options = [])
     {
         extract(array_merge([
-            'login'    => '',
+            'login' => '',
             'password' => '',
         ], $options));
 

@@ -2,7 +2,7 @@
 
 namespace Classes;
 
-use Classes\UserModel;
+//use Classes\UserModel;
 use Exception;
 
 class Auth
