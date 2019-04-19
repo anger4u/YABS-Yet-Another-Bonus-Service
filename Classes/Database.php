@@ -15,7 +15,7 @@ class Database
         'host' => 'localhost',
         'user' => 'golf',
         'pass' => 'golf',
-        'db' => 'YABS_BONUS',
+        'db' => 'YABS_DISCOUNT',
         'port' => null,
         'socket' => null,
         'pconnect' => false,

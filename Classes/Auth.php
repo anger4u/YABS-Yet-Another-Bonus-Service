@@ -9,6 +9,7 @@ class Auth
 {
     public $user;
 
+    // проверка логин пароля пользователя системы на соответствие
     public function checkUser($options = [])
     {
         extract(array_merge([
@@ -26,6 +27,7 @@ class Auth
             'login' => $login,
         ]);
 
+        // проверка пароля на соответствие хешу
         if ($findUser) {
             if (password_verify($password, $findUser['pass_hash'])) {
                 $this->user = $findUser;

@@ -2,8 +2,11 @@
 
 namespace Classes;
 
+use DateTime;
+
 trait Helper
 {
+    // определение статуса запроса
     private function requestStatus($code)
     {
         $status = array(
@@ -16,12 +19,14 @@ trait Helper
         return ($status[$code]) ? $status[$code] : $status[500];
     }
 
+    // формирование ответа и завершение работы функций
     protected function response($data, $status = 500)
     {
         header("HTTP/1.1 " . $status . " " . $this->requestStatus($status));
         die(json_encode($data));
     }
 
+    // форматирование номера телефона
     public function formattedPhoneNumber($number = '')
     {
         if ('' != $number) {
@@ -42,5 +47,12 @@ trait Helper
         }
 
         return $number;
+    }
+
+    // валидатор даты и времени
+    public function validateDate($date, $format = 'Y-m-d H:i:s')
+    {
+        $d = DateTime::createFromFormat($format, $date);
+        return $d && $d->format($format) == $date;
     }
 }

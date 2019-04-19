@@ -4,7 +4,6 @@ declare (strict_types=1);
 
 namespace Classes;
 
-//use Classes\Helper;
 use Exception;
 
 abstract class Api
@@ -40,10 +39,7 @@ abstract class Api
 
         //Определение действия для обработки
         $this->action = $this->getAction();
-    }
 
-    public function run()
-    {
         return $this->{$this->action}();
     }
 
@@ -66,15 +62,12 @@ abstract class Api
                         case 'create':
                             $action = 'createAction';
                             break;
-
                         case 'update':
                             $action = 'updateAction';
                             break;
-
                         case 'delete':
                             $action = 'deleteAction';
                             break;
-
                         default:
                             throw new Exception('Метод не найден.');
                             break;

@@ -2,18 +2,9 @@
 
 namespace Classes;
 
-//use Classes\Api;
-//use Classes\UserModel;
-
 class Users extends Api
 {
-    /**
-     * Метод GET
-     * Вывод списка всех записей
-     * http://ДОМЕН/users
-     *
-     * @return string
-     */
+    // Вывод списка всех записей пользователей системы
     public function indexAction()
     {
         $users = (new UserModel)->getUsers();
@@ -21,13 +12,7 @@ class Users extends Api
         return $this->response(['users' => $users], 200);
     }
 
-    /**
-     * Метод GET
-     * Просмотр отдельной записи (по id)
-     * http://ДОМЕН/users/1
-     *
-     * @return string
-     */
+    // Просмотр отдельной записи
     public function viewAction()
     {
         //id должен быть первым параметром после /api/users/:id
@@ -43,23 +28,19 @@ class Users extends Api
         return $this->response(['error' => 'Пользователь не найден'], 404);
     }
 
-    /**
-     * Метод POST
-     * Создание новой записи
-     * http://ДОМЕН/users + параметры запроса name, email
-     *
-     * @return string
-     */
+    // Создание новой записи
     public function createAction()
     {
         $login = $this->requestParams['login'] ?? '';
         $password = $this->requestParams['password'] ?? '';
+        $position = $this->requestParams['position'] ?? '';
 
         $user = new UserModel;
 
         $createUser = $user->createUser([
             'login' => $login,
             'password' => $password,
+            'position' => $position
         ]);
 
         if ($createUser) {
@@ -69,55 +50,45 @@ class Users extends Api
         return $this->response(['error' => "Ошибка создания пользователя"], 500);
     }
 
-    /**
-     * Метод PUT
-     * Обновление отдельной записи (по ее id)
-     * http://ДОМЕН/users/1 + параметры запроса name, email
-     *
-     * @return string
-     */
+    // Обновление записи записи
     public function updateAction()
     {
-        // $parse_url = parse_url($this->requestUri[0]);
-        // $userId    = $parse_url['path'] ?? null;
+        $id = $this->requestParams['id'] ?? '';
+        $login = $this->requestParams['login'] ?? '';
+        $password = $this->requestParams['password'] ?? '';
+        $position = $this->requestParams['position'] ?? '';
 
-        // $db = (new db())->getConnect();
+        $user = new UserModel;
 
-        // if (!$userId || !Users::getById($db, $userId)) {
-        //     return $this->response("User with id=$userId not found", 404);
-        // }
+        $updateUser = $user->updateUser([
+            'id' => $id,
+            'login' => $login,
+            'password' => $password,
+            'position' => $position
+        ]);
 
-        // $name  = $this->requestParams['name'] ?? '';
-        // $email = $this->requestParams['email'] ?? '';
+        if ($updateUser) {
+            return $this->response(['message' => 'Данные обновлены'], 200);
+        }
 
-        // if ($name && $email) {
-        //     if ($user = Users::update($db, $userId, $name, $email)) {
-        //         return $this->response('Data updated.', 200);
-        //     }
-        // }
-        // return $this->response("Update error", 400);
+        return $this->response(['error' => "Ошибка обновления данных"], 500);
     }
 
-    /**
-     * Метод DELETE
-     * Удаление отдельной записи (по ее id)
-     * http://ДОМЕН/users/1
-     *
-     * @return string
-     */
+    // Удаление отдельной записи
     public function deleteAction()
     {
-        // $parse_url = parse_url($this->requestUri[0]);
-        // $userId    = $parse_url['path'] ?? null;
+        $login = $this->requestParams['login'] ?? '';
 
-        // $db = (new db())->getConnect();
+        $user = new UserModel;
 
-        // if (!$userId || !Users::getById($db, $userId)) {
-        //     return $this->response("User with id=$userId not found", 404);
-        // }
-        // if (Users::deleteById($db, $userId)) {
-        //     return $this->response('Data deleted.', 200);
-        // }
-        // return $this->response("Delete error", 500);
+        $deleteUser = $user->deleteUser([
+            'login' => $login
+        ]);
+
+        if ($deleteUser) {
+            return $this->response(['message' => 'Пользователь удалён'], 200);
+        }
+
+        return $this->response(['error' => "Ошибка удаления пользователя"], 500);
     }
 }
