@@ -1,0 +1,59 @@
+﻿Запрос на получение списка всех пользователей http://golf.rarus-crimea.ru/api/users/
+
+
+Запрос на получение конкретного пользователя по id
+ http://golf.rarus-crimea.ru/api/users/ид_пользователя
+
+
+Запрос на создание пользователя системы - все параметры обязательны
+ http://golf.rarus-crimea.ru/api/users/create?login=test&password=123123&position=manager
+
+
+Запрос на редактирование пользователя системы по id в зависимости от переданных параметров
+ http://golf.rarus-crimea.ru/api/users/update?id=ид_пользователя&login=логин
+
+
+Запрос на удаление пользователя системы по http://golf.rarus-crimea.ru/api/users/delete?login=логин
+
+———————————
+
+
+Запрос на получение списка всех клиентов
+ http://golf.rarus-crimea.ru/api/clients/
+
+
+Запрос на получение конкретного клиента по id
+ http://golf.rarus-crimea.ru/api/clients/ид_пользователя
+
+
+Запрос на создание клиента - все параметры обязательны
+ http://golf.rarus-crimea.ru/api/clients/create?login=test&password=123123
+Запрос на редактирование клиента системы по id в зависимости от переданных параметров http://golf.rarus-crimea.ru/api/clients/update?id=ид_пользователя&login=логин
+
+
+Запрос на удаление клиента системы по id
+bonus.saaay.ru/api/clients/delete?id=ид_пользователя
+
+
+———————————
+
+
+Типы операций -> type:
+1 - Создание карты
+2 - Покупка
+3 - Изменение статуса
+
+
+Запрос для создания операции о заведении карты
+ http://golf.rarus-crimea.ru/api/operations/create?phone=номер_телефона&type=1
+
+
+Запрос для создания операции о произведении покупки
+ http://golf.rarus-crimea.ru/api/operations/create?phone=номер_телефона&type=2
+
+
+Запрос для создания операции об изменении статуса карты и изменение статуса карты по номеру телефона используя параметр типа №3
+ http://golf.rarus-crimea.ru/api/operations/create?phone=номер_телефона&type=3
+
+
+Запрос для показа всех операций http://golf.rarus-crimea.ru/api/operations/

@@ -1,0 +1,103 @@
+# For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection).
+#
+# Following HTTP Request Live Templates are available:
+# * 'gtrp' and 'gtr' create a GET request with or without query parameters;
+# * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
+# * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
+
+# получение всех клиентов
+
+GET http://golf.rarus-crimea.ru/api/clients/
+Content-Type: application/json
+Authorization: Basic bWFzdGVyOm1hc3RlcjEyMw==
+
+###
+
+# получение пользователя по id
+
+GET http://golf.rarus-crimea.ru/api/clients/50
+Content-Type: application/json
+Authorization: Basic bWFzdGVyOm1hc3RlcjEyMw==
+
+###
+
+# создание пользователя
+POST http://golf.rarus-crimea.ru/api/clients/create
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Authorization: Basic bWFzdGVyOm1hc3RlcjEyMw==
+
+--WebAppBoundary
+Content-Disposition: form-data; name="name"
+
+User1
+--WebAppBoundary--
+
+--WebAppBoundary
+Content-Disposition: form-data; name="surname"
+
+Surname1
+--WebAppBoundary--
+
+--WebAppBoundary
+Content-Disposition: form-data; name="gender"
+
+M
+--WebAppBoundary--
+
+--WebAppBoundary
+Content-Disposition: form-data; name="phone"
+
+89780000000
+--WebAppBoundary--
+
+--WebAppBoundary
+Content-Disposition: form-data; name="birthday"
+
+1999-01-01
+--WebAppBoundary--
+
+--WebAppBoundary
+Content-Disposition: form-data; name="discount_rate"
+
+3
+--WebAppBoundary--
+
+###
+
+# редактирование пользователя
+POST http://golf.rarus-crimea.ru/api/clients/update
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Authorization: Basic bWFzdGVyOm1hc3RlcjEyMw==
+
+--WebAppBoundary
+Content-Disposition: form-data; name="id"
+
+55
+--WebAppBoundary--
+
+--WebAppBoundary
+Content-Disposition: form-data; name="name"
+
+Tolly
+--WebAppBoundary--
+
+--WebAppBoundary
+Content-Disposition: form-data; name="surname"
+
+Nigga
+--WebAppBoundary--
+
+###
+
+# удаление пользователя
+POST http://golf.rarus-crimea.ru/api/clients/delete
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Authorization: Basic bWFzdGVyOm1hc3RlcjEyMw==
+
+--WebAppBoundary
+Content-Disposition: form-data; name="id"
+
+55
+--WebAppBoundary--
+
+###
